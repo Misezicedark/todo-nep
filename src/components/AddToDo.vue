@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
     name: "AddTask",
     data() {
@@ -21,9 +19,12 @@ export default {
     },
     methods: {
         addTodo() {
+            if(this.name.length === 0) {
+                alert('Please enter a name');
+                return;
+            }
             this.loading = true;
-            const url = 'https://63e772d0ac3920ad5bde168c.mockapi.io/todo-nep/v1/task';
-            axios.post(url, {
+            this.axios.post('',{
                 name: this.name,
                 completed: false,
             })
@@ -71,6 +72,7 @@ export default {
         color: #fff;
         text-transform: uppercase;
         font-size: 12px;
+        cursor: pointer;
         .spinner {
             width: 22px;
         }

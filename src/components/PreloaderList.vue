@@ -1,6 +1,6 @@
 <template>
     <div class="preloader-list">
-        <div class="preloader-item" v-for="item in 7"></div>
+        <div class="preloader-item" v-for="item in 7" :key="item"></div>
     </div>
 </template>
 

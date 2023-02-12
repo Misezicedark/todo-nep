@@ -3,10 +3,11 @@
         <add-task v-on:push="pushToList" />
         <preloader-list v-if="!hasData"/>
         <div v-else class="todo-list">
-            <to-do-item
+            <single-to-do
                 :data="item"
                 :index="index"
                 v-for="(item, index) in data"
+                :key="item.id"
                 v-on:toggle="toggleToDoState"
                 v-on:delete="deleteToDoFromList"
                 v-on:update-name="updateName"
@@ -16,15 +17,14 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 import AddTask from "@/components/AddToDo";
-import ToDoItem from "@/components/SingleToDo";
 import PreloaderList from "@/components/PreloaderList";
+import SingleToDo from "@/components/SingleToDo";
 
 export default {
     name: 'App',
-    components: {PreloaderList, ToDoItem, AddTask},
+    components: {SingleToDo, PreloaderList, AddTask},
     data() {
         return {
             data: []
@@ -40,8 +40,7 @@ export default {
             this.data.unshift(payload);
         },
         loadData() {
-            const url = 'https://63e772d0ac3920ad5bde168c.mockapi.io/todo-nep/v1/task';
-            axios.get(url)
+            this.axios.get('')
                 .then((response) => {
                     if(response.status === 200) {
                         this.data = response.data.reverse()

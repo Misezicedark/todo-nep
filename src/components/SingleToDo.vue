@@ -1,8 +1,8 @@
 <template>
     <div class="single-to-do">
         <label class="form-control">
-            <input type="radio" :name="data.name" @change="toggleToDoState" :checked="data.completed" />
-            <input type="text" :value="data.name" @input="updateToDo" class="name" />
+            <input type="radio" :name="data.name" @change="toggleState" :checked="data.completed" />
+            <input type="text" :value="data.name" @input="debouncedUpdateName" class="name" />
         </label>
         <button class="delete-button" @click="deleteToDo">
             <span v-if="!loading">Delete</span>
@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 export default {
     name: "SingleToDo",
     data() {
@@ -31,13 +30,12 @@ export default {
         }
     },
     methods: {
-        toggleToDoState() {
+        toggleState() {
             // We will update the completed state (true/false) inside the database
             // and emit an event back to the parent component to update the data;
             // even if we are not using data anywhere else, it is best practice to maintain an updated
             // single source of truth
-            const url = 'https://63e772d0ac3920ad5bde168c.mockapi.io/todo-nep/v1/task';
-            axios.put(url + '/' + this.data.id, {
+            this.axios.put(this.data.id, {
                 completed: !this.data.completed
             })
                 .then((response) => {
@@ -53,8 +51,7 @@ export default {
         deleteToDo() {
             // Delete the to do item and emit an event to remove the to do item from the list
             this.loading = true;
-            const url = 'https://63e772d0ac3920ad5bde168c.mockapi.io/todo-nep/v1/task';
-            axios.delete(url + '/' + this.data.id, {
+            this.axios.delete(this.data.id, {
                 data: {
                     id: this.data.id,
                 }
@@ -72,8 +69,13 @@ export default {
         },
         updateName(event) {
             // Update the to do item
-            const url = 'https://63e772d0ac3920ad5bde168c.mockapi.io/todo-nep/v1/task';
-            axios.put(url + '/' + this.data.id, {
+            if(this.name.length === 0) {
+                alert('Please enter a name');
+                return;
+            }
+
+
+            this.axios.put(this.data.id, {
                 name: event.target.value
             })
                 .catch(error => {
@@ -82,7 +84,7 @@ export default {
         }
     },
     mounted() {
-        this.updateToDo = debounce(this.updateName, 500)
+        this.debouncedUpdateName = debounce(this.updateName, 500)
     }
 }
 </script>
