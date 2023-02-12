@@ -1,5 +1,5 @@
 <template>
-    <div class="single-to-do">
+    <div class="single-to-do" :class="{'completed': data.completed}">
         <label class="form-control">
             <input type="radio" :name="data.name" @click="toggleState" :checked="data.completed" />
             <input type="text" :value="data.name" @input="debouncedUpdateName" class="name" />
@@ -101,6 +101,9 @@ export default {
     margin-top: 2px;
     margin-bottom: 2px;
     background: #fff;
+    &.completed {
+        opacity: 0.6;
+    }
     &:first-child {
         margin-top: 0;
     }
@@ -163,6 +166,7 @@ input[type="radio"] {
 
     display: grid;
     place-content: center;
+    cursor: pointer;
 }
 
 input[type="radio"]::before {
@@ -175,9 +179,11 @@ input[type="radio"]::before {
     box-shadow: inset 1em 1em var(--form-control-color);
     /* Windows High Contrast Mode */
     background-color: CanvasText;
+    cursor: pointer;
 }
 
 input[type="radio"]:checked::before {
     transform: scale(1);
+    cursor: pointer;
 }
 </style>
