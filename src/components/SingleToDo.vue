@@ -69,7 +69,7 @@ export default {
         },
         updateName(event) {
             // Update the to do item
-            if(this.name.length === 0) {
+            if(event.target.value === 0) {
                 alert('Please enter a name');
                 return;
             }
