@@ -1,7 +1,7 @@
 <template>
     <div class="single-to-do">
         <label class="form-control">
-            <input type="radio" :name="data.name" @change="toggleState" :checked="data.completed" />
+            <input type="radio" :name="data.name" @click="toggleState" :checked="data.completed" />
             <input type="text" :value="data.name" @input="debouncedUpdateName" class="name" />
         </label>
         <button class="delete-button" @click="deleteToDo">
