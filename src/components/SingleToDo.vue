@@ -103,6 +103,7 @@ export default {
     background: #fff;
     &.completed {
         opacity: 0.6;
+        transition: 0.2s all ease-in-out;
     }
     &:first-child {
         margin-top: 0;
