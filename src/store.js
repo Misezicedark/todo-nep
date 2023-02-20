@@ -14,7 +14,7 @@ export const useTaskStore = defineStore('task-store', {
 		getTaskByID: (state) => { return (id) => state.tasks.find((task) => task.id === id)}
 	},
 	actions: {
-		async initialiseTasks() {
+		initialiseTasks() {
 			this.isLoading = true;
 			axios.get(url)
 				.then((response) => {
