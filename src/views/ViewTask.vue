@@ -45,6 +45,9 @@
                 <div class="preloader-item w-1/6 h-[40px] rounded-[8px] mt-[24px]"></div>
             </div>
         </div>
+        <div class="w-full bg-blue max-w-screen-lg p-3 mt-[16px] rounded-[16px] text-xs text-white text-center">
+            Updates are done as you type, therefore no need for a save button. Multiple requests? No worries, we are debouncing them
+        </div>
     </div>
 </template>
 
