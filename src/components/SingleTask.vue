@@ -2,9 +2,9 @@
     <div :class="{'completed': data.completed}" class="flex justify-center">
         <label class="flex justify-center items-center w-full">
             <state-radio :checked="data.completed" @toggled="toggleState" />
-            <div class="w-full flex flex-col ml-[8px]" :class="{ 'opacity-50 grayscale' : isCompleted }">
+            <div class="flex flex-1 flex-col ml-[8px]" :class="{ 'opacity-50 grayscale' : isCompleted }">
                 <h4
-                    class="font-semibold text-sm text-dark-grey"
+                    class="font-semibold text-sm text-dark-grey break-words break-all"
                     :class="{ 'line-through' : data.completed }"
                 >
                     {{data.name}}
